@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import './ImageGalleryItem.css';
 
-const ImageGalleryItem = ({ webformatURL, tags, id, handlerModal }) => {
+const ImageGalleryItem = ({ webformatURL, tags, id, handlerItemClick }) => {
   return (
     <li
       className="ImageGalleryItem"
       onClick={() => {
-        handlerModal(id);
+        handlerItemClick(id);
       }}
     >
       <img src={webformatURL} alt={tags} className="ImageGalleryItem-image" />
@@ -15,7 +15,7 @@ const ImageGalleryItem = ({ webformatURL, tags, id, handlerModal }) => {
 };
 
 ImageGalleryItem.propTypes = {
-  handlerModal: PropTypes.func.isRequired,
+  handlerItemClick: PropTypes.func.isRequired,
   webformatURL: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,

@@ -4,14 +4,29 @@ import './ImageGallery.css';
 import ImageGalleryItem from '../../components/ImageGalleryItem';
 
 class ImageGallery extends Component {
-  componentDidUpdate() {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+  state = { top: 0 };
+  componentDidUpdate(prevProps, prevState) {
+    // const doc1 = document.documentElement.clientHeight;
+    // const doc2 = document.documentElement.scrollHeight;
+    // // console.log(doc1, doc2);
+    // const res = doc2 - doc1;
+    // console.log('res', res);
+    // console.log('prevSt', prevState.top);
+    // if (prevState.top !== this.state.top) {
+    // }
+    // const doc1 = document.documentElement.clientHeight;
+    // const doc2 = document.documentElement.scrollHeight;
+    // console.log(doc1, doc2);
+    // const res = doc2 - doc1;
+    // console.log(res);
+    // this.setState({ top: res });
+    // window.scrollTo({
+    //   top: res, //document.documentElement.scrollHeight,
+    //   behavior: 'smooth',
+    // });
   }
   render() {
-    const { list, handlerModal } = this.props;
+    const { list, handlerItemClick } = this.props;
     return (
       <ul className="ImageGallery">
         {list.map((el, indx) => (
@@ -20,7 +35,7 @@ class ImageGallery extends Component {
             webformatURL={el.webformatURL}
             tags={el.tags}
             id={el.id}
-            handlerModal={handlerModal}
+            handlerItemClick={handlerItemClick}
           />
         ))}
       </ul>
@@ -35,6 +50,6 @@ ImageGallery.propTypes = {
       tags: PropTypes.string.isRequired,
     }),
   ),
-  handlerModal: PropTypes.func.isRequired,
+  handlerItemClick: PropTypes.func.isRequired,
 };
 export default ImageGallery;

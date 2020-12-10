@@ -18,7 +18,9 @@ class App extends Component {
     currentImg: { src: '', alt: '' },
     totalImgs: 0,
   };
+
   handlerSubmit = search => {
+    window.scrollTo(0, 0);
     this.setState({ isLoading: true });
     fetchService.searchQuery = search;
     fetchService.pageNumber = 1;
@@ -34,6 +36,7 @@ class App extends Component {
   };
 
   handleLoadMore = () => {
+    const HeightBeforeRender = document.documentElement.scrollHeight;
     this.setState({ isLoading: true });
     fetchService
       .nextDataPortion()
@@ -43,18 +46,32 @@ class App extends Component {
         });
       })
       .catch(console.log)
+      .then(() => {
+        this.handlerScrollTo(HeightBeforeRender);
+      })
       .finally(() => {
         this.setState({ isLoading: false });
       });
   };
-  handlerModal = id => {
+
+  handlerItemClick = id => {
     this.toggleModal();
     const current = this.state.images.find(el => el.id === id);
     this.setState({
       currentImg: { src: current.largeImageURL, alt: current.tags },
     });
   };
-
+  handlerScrollTo = height => {
+    const renderedContentHeight =
+      document.documentElement.scrollHeight - height;
+    // console.log(renderedContentHeight);
+    const scrollTo =
+      document.documentElement.scrollHeight - renderedContentHeight;
+    window.scrollTo({
+      top: scrollTo - 150,
+      behavior: 'smooth',
+    });
+  };
   toggleModal = () => {
     this.setState(prevState => ({ showModal: !prevState.showModal }));
   };
@@ -66,7 +83,7 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handlerSubmit} />
-        <ImageGallery list={images} handlerModal={this.handlerModal} />
+        <ImageGallery list={images} handlerItemClick={this.handlerItemClick} />
 
         {isButtonVisible ? (
           <Button isOff={false} onClick={this.handleLoadMore} />
