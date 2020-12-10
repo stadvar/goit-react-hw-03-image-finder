@@ -62,13 +62,14 @@ class App extends Component {
     });
   };
   handlerScrollTo = height => {
+    const searchElementHeight = 70;
+    const buttonLoadmoreHeight = 80;
     const renderedContentHeight =
       document.documentElement.scrollHeight - height;
-    // console.log(renderedContentHeight);
     const scrollTo =
       document.documentElement.scrollHeight - renderedContentHeight;
     window.scrollTo({
-      top: scrollTo - 150,
+      top: scrollTo - (searchElementHeight + buttonLoadmoreHeight),
       behavior: 'smooth',
     });
   };
