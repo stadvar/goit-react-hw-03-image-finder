@@ -24,6 +24,7 @@ class App extends Component {
     this.setState({ isLoading: true });
     fetchService.searchQuery = search;
     fetchService.pageNumber = 1;
+    fetchService.currentCount = 0;
     fetchService
       .fetchData()
       .then(data => {
