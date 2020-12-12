@@ -5,33 +5,14 @@ import ImageGalleryItem from '../../components/ImageGalleryItem';
 
 class ImageGallery extends Component {
   state = { top: 0 };
-  componentDidUpdate(prevProps, prevState) {
-    // const doc1 = document.documentElement.clientHeight;
-    // const doc2 = document.documentElement.scrollHeight;
-    // // console.log(doc1, doc2);
-    // const res = doc2 - doc1;
-    // console.log('res', res);
-    // console.log('prevSt', prevState.top);
-    // if (prevState.top !== this.state.top) {
-    // }
-    // const doc1 = document.documentElement.clientHeight;
-    // const doc2 = document.documentElement.scrollHeight;
-    // console.log(doc1, doc2);
-    // const res = doc2 - doc1;
-    // console.log(res);
-    // this.setState({ top: res });
-    // window.scrollTo({
-    //   top: res, //document.documentElement.scrollHeight,
-    //   behavior: 'smooth',
-    // });
-  }
+
   render() {
     const { list, handlerItemClick } = this.props;
     return (
       <ul className="ImageGallery">
         {list.map((el, indx) => (
           <ImageGalleryItem
-            key={indx}
+            key={el.key_id}
             webformatURL={el.webformatURL}
             tags={el.tags}
             id={el.id}

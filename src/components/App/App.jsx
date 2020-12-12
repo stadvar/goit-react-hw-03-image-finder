@@ -9,6 +9,7 @@ import './App.css';
 
 import FetchService from '../../services/fetch-services';
 const fetchService = new FetchService();
+const shortid = require('shortid');
 
 class App extends Component {
   state = {
@@ -28,7 +29,11 @@ class App extends Component {
     fetchService
       .fetchData()
       .then(data => {
-        this.setState({ images: [...data.hits], totalImgs: data.totalHits });
+        const images = data.hits.map(el => ({
+          ...el,
+          key_id: shortid.generate(),
+        }));
+        this.setState({ images: [...images], totalImgs: data.totalHits });
       })
       .catch(console.log)
       .finally(() => {
@@ -43,7 +48,11 @@ class App extends Component {
       .nextDataPortion()
       .then(data => {
         this.setState(prevState => {
-          return { images: [...prevState.images, ...data.hits] };
+          const images = data.hits.map(el => ({
+            ...el,
+            key_id: shortid.generate(),
+          }));
+          return { images: [...prevState.images, ...images] };
         });
       })
       .catch(console.log)
